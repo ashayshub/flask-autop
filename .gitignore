@@ -106,3 +106,4 @@ venv.bak/
 #Custom
 *~
 autop.egg-info/
+.idea/
