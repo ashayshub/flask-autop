@@ -1,0 +1,59 @@
+{%- extends "bootstrap/base.html" %}
+{% block title %}Home | Autop App for Test {% endblock %}
+{% import "bootstrap/fixes.html" as fixes %}
+
+{% block head %}
+{{super()}}
+{{fixes.ie8()}}
+{%- endblock %}
+
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{url_for('.static', filename='css/autop.css')}}">
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="{{url_for('.static', filename='js/autop.js')}}"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="bs-example">
+
+    <div class="text-left">
+       <button type="button" class="btn btn-primary">Populate Database</button>
+       <button type="button" class="btn btn-danger">Teardown Database</button>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for n in car_list %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{n.title}}</td>
+                <td>{{n.summary}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="#">2015</a></li>
+      <li class="page-item"><a class="page-link" href="#">2016</a></li>
+      <li class="page-item"><a class="page-link" href="#">2017</a></li>
+      <li class="page-item"><a class="page-link" href="#">2018</a></li>
+      <li class="page-item"><a class="page-link" href="#">2019</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+  </div>
+{% endblock %}
