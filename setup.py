@@ -32,6 +32,7 @@ setup(
      'requests==2.18.4',
      's3transfer==0.1.11',
      'six==1.11.0',
+     'SQLAlchemy==1.1.15',
      'urllib3==1.22',
      'Werkzeug==0.12.2'
     ],

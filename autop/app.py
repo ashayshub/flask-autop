@@ -5,6 +5,8 @@ app = Flask(__name__)
 Bootstrap(app)
 
 
+# All GET Methods
+
 @app.route('/', methods=['GET'])
 def home():
     cars= [
@@ -18,10 +20,23 @@ def home():
 
 
 @app.route('/static/<path:path>', methods=['GET'])
-def send_js(path):
+def send_static(path):
+    return send_from_directory('static', path)
+
+
+# All POST Methods
+
+@app.route('/populate/', methods=['POST'])
+def populate_db(path):
+    return send_from_directory('static', path)
+
+
+# All DELETE Methods
+
+@app.route('/teardown/', methods=['DELETE'])
+def teardown_db(path):
     return send_from_directory('static', path)
 
 
 if __name__ == '__main__':
-
     app.run(debug=True)
