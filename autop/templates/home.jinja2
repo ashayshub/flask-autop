@@ -22,38 +22,63 @@
   <div class="bs-example">
 
     <div class="text-left">
-       <button type="button" class="btn btn-primary">Populate Database</button>
-       <button type="button" class="btn btn-danger">Teardown Database</button>
+       <button type="button" data-toggle="modal" data-target="#myModal" id="populate" class="btn btn-primary">Populate Database</button>
+       <button type="button" id="teardown" class="btn btn-danger">Teardown Table</button>
+       {% if car_type == "Truck" %}
+         <a href="/Sport?car_type=Sport" class="btn btn-link" role="button">Sports</a>
+       {% else %}
+         <a href="/" class="btn btn-link" role="button">Home</a>
+       {% endif %}
     </div>
 
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Populate Database</h4>
+          </div>
+          <div class="modal-body">
+            <p></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <p class="h2">Car Type: {{ car_type }}</p>
+    <div>
+    {{ pagination.info }}
+    {{ pagination.links }}
+    </div>
     <table class="table">
         <thead>
             <tr>
                 <th>#</th>
+                <th>Type</th>
                 <th>Title</th>
                 <th>Summary</th>
+                <th>Price</th>
             </tr>
         </thead>
 
         <tbody>
-        {% for n in car_list %}
+        {% for car in cars %}
             <tr>
-                <td>{{loop.index}}</td>
-                <td>{{n.title}}</td>
-                <td>{{n.summary}}</td>
+                <td>{{ loop.index + (page - 1) * per_page  }}</td>
+                <td>{{ car.car_type }}</td>
+                <td>{{ car.title }}</td>
+                <td>{{ car.summary }}</td>
+                <td><button type="button" class="btn btn-info btn-xs" >Get Price</button></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <li class="page-item"><a class="page-link" href="#">2015</a></li>
-      <li class="page-item"><a class="page-link" href="#">2016</a></li>
-      <li class="page-item"><a class="page-link" href="#">2017</a></li>
-      <li class="page-item"><a class="page-link" href="#">2018</a></li>
-      <li class="page-item"><a class="page-link" href="#">2019</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
+    {{ pagination.links }}
   </div>
 {% endblock %}

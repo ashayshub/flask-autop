@@ -23,6 +23,8 @@ setup(
      'docutils==0.14',
      'Flask==0.12.2',
      'Flask-Bootstrap==3.3.7.1',
+     'flask-paginate==0.5.1',
+     'Flask-SQLAlchemy==2.3.2',
      'idna==2.6',
      'itsdangerous==0.24',
      'Jinja2==2.10',
