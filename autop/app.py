@@ -10,7 +10,7 @@ app = Flask(__name__)
 Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/autop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
+db.init_app(app=app)
 
 
 # For Debug
@@ -32,6 +32,7 @@ def add_header(r):
 def get_trucks():
 
     # GET params
+    init_db()
     car_type = request.args.get('type', 'Truck')
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')

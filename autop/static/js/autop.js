@@ -1,6 +1,7 @@
 function printToModal(data) {
    $('.modal-body p').text(data);
    $('#myModal').modal('show');
+   location.href = "/";
    return true;
 }
 //

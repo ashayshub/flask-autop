@@ -1,5 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
-db = SQLAlchemy()
+db = SQLAlchemy(session_options={
+    'autocommit': True,
+    'autoflush': True
+})
 
 
 class Car(db.Model):
@@ -40,4 +43,4 @@ def db_insert(data):
 
 
 def drop_table():
-    return Car.__table__.drop(checkfirst=True)
+    return Car.__table__.drop(bind=db.engine, checkfirst=True)
