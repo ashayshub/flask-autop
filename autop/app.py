@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import RotatingFileHandler
 from flask import Flask, send_from_directory, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_paginate import Pagination, get_page_args
@@ -104,4 +105,6 @@ def teardown_db_table():
 
 
 if __name__ == '__main__':
+    handler = RotatingFileHandler('server.log', maxBytes=10000, backupCount=1)
+    handler.setLevel(logging.DEBUG)
     app.run(debug=True)
