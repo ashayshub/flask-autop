@@ -1,4 +1,5 @@
 import logging
+import os
 from flask import Flask, send_from_directory, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_paginate import Pagination, get_page_args
@@ -22,9 +23,10 @@ def add_header(r):
     Add headers to both force latest IE rendering engine or Chrome Frame,
     and also to cache the rendered page for 10 minutes.
     """
-    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, public, max-age=0"
-    r.headers["Pragma"] = "no-cache"
-    r.headers["Expires"] = "0"
+    if os.environ.get('DEBUG', '0') == '1':
+        r.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate, public, max-age=0'
+        r.headers['Pragma'] = 'no-cache'
+        r.headers['Expires'] = '0'
     return r
 
 
