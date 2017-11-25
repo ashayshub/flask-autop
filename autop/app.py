@@ -108,4 +108,9 @@ if __name__ == '__main__':
     handler = RotatingFileHandler('server.log', maxBytes=10000, backupCount=1)
     handler.setLevel(logging.DEBUG)
     app.logger.addHandler(handler)
+
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.DEBUG)
+    log.addHandler(handler)
+
     app.run(debug=True)
