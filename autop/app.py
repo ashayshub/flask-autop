@@ -24,6 +24,7 @@ def add_header(r):
     and also to cache the rendered page for 10 minutes.
     """
     if os.environ.get('DEBUG', '0') == '1':
+        logging.warning('Debugging is On')
         r.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate, public, max-age=0'
         r.headers['Pragma'] = 'no-cache'
         r.headers['Expires'] = '0'
