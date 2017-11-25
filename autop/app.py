@@ -107,4 +107,5 @@ def teardown_db_table():
 if __name__ == '__main__':
     handler = RotatingFileHandler('server.log', maxBytes=10000, backupCount=1)
     handler.setLevel(logging.DEBUG)
+    app.logger.addHandler(handler)
     app.run(debug=True)
