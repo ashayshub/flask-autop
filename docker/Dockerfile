@@ -5,6 +5,5 @@ RUN git clone https://github.com/ashayshub/flask-autop.git /app
 WORKDIR /app
 RUN pip install -r requirements.txt
 ENV FLASK_APP autop.app
-RUN pwd
 ENTRYPOINT ["python3"]
-CMD ["/usr/local/bin/flask", "run"]
+CMD ["/usr/local/bin/flask", "run", "--host=0.0.0.0"]
