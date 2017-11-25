@@ -1,3 +1,4 @@
+import logging
 from flask import Flask, send_from_directory, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_paginate import Pagination, get_page_args
@@ -5,7 +6,7 @@ from flask_paginate import Pagination, get_page_args
 from autop.processor import Crawler
 from autop.models import db, Car, init_db, drop_table
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__, static_url_path='')
 Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/autop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -26,10 +27,10 @@ def add_header(r):
 
 
 # All GET Methods
+
 @app.route('/', methods=['HEAD', 'GET'])
-@app.route('/Truck', methods=['HEAD', 'GET'])
 @app.route('/Sport', methods=['HEAD', 'GET'])
-def get_cars():
+def get_trucks():
     init_db()
     car_type = request.args.get('car_type', 'Truck')
     page, per_page, offset = get_page_args(page_parameter='page',
@@ -46,13 +47,6 @@ def get_cars():
 
     return render_template('home.jinja2', cars=cars, car_type=car_type,
                            page=page, per_page=per_page, pagination=pagination)
-
-
-# Usually static will go under a CDN/web server
-@app.route('/static/<path:path>', methods=['HEAD', 'GET'])
-def send_static(path):
-    logging.error(f'Path: {path}')
-    return send_from_directory('/app/autop/static', path)
 
 
 # All POST Methods
