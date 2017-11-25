@@ -24,4 +24,4 @@ This is a Test Application for project Auto Test.
 1. Click "Populate Database" in order to fetch data from the remote web source.
 2. In case of issue, click "Teardown Table" to drop the table and start fresh.
 3. Home page lists the paginated view of All the Trucks from the local database.
-4. `/Sport` page lists all the Sports cars from the local database. 
+4. [Sport](http://127.0.0.1:5000/Sport?car_type=Sport) link lists all the Sports cars from the local database. 
