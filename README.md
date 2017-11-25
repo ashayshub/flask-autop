@@ -9,8 +9,7 @@ This is a Test Application for project Auto Test.
    in order to download the static libraries for frontend. (e.g. Bootstrap)
 
 ### ToDo
-1. Add relative paths to the static and templates folders.
-2. Add `get price` functionality to the "Get Price" button.  
+1. Add `get price` functionality to the "Get Price" button.  
 
 ### To Run the Server
 
@@ -20,6 +19,9 @@ This is a Test Application for project Auto Test.
 4. Run `docker run -p "5000:5000"  -tdi autop`
 5. Access the endpoint [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
 
-6. Click "Populate Database" in order to fetch data from the remote web source.
-7. In case of issue, click "Teardown Table" to drop the table and start fresh.
- 
+### Accessing and Using the Server
+
+1. Click "Populate Database" in order to fetch data from the remote web source.
+2. In case of issue, click "Teardown Table" to drop the table and start fresh.
+3. Home page lists the paginated view of All the Trucks from the local database.
+4. `/Sport` page lists all the Sports cars from the local database. 
