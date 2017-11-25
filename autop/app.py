@@ -6,10 +6,12 @@ from flask_paginate import Pagination, get_page_args
 from autop.processor import Crawler
 from autop.models import db, Car, init_db, drop_table
 
-app = Flask(__name__, static_url_path='')
-Bootstrap(app)
+app = Flask(__name__, static_url_path='/static', root_path='/app',
+            template_folder='/app/autop/templates', static_folder='/app/autop/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/autop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+Bootstrap(app)
 db.init_app(app=app)
 
 

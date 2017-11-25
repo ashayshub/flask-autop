@@ -2,6 +2,7 @@ FROM python:3.6.3-jessie
 RUN apt-get update && \
      apt-get install git python3-pip -y
 RUN git clone https://github.com/ashayshub/flask-autop.git /app
+#COPY ./ /app
 WORKDIR /app
 RUN pip3 install -r requirements.txt
 
