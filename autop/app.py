@@ -5,7 +5,7 @@ from flask_paginate import Pagination, get_page_args
 from autop.processor import Crawler
 from autop.models import db, Car, init_db, drop_table
 
-app = Flask(__name__, template_folder='/app/autop/templates')
+app = Flask(__name__, template_folder='templates')
 Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/autop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -51,6 +51,7 @@ def get_cars():
 # Usually static will go under a CDN/web server
 @app.route('/static/<path:path>', methods=['HEAD', 'GET'])
 def send_static(path):
+    logging.error(f'Path: {path}')
     return send_from_directory('/app/autop/static', path)
 
 
