@@ -19,3 +19,7 @@ This is a Test Application for project Auto Test.
 3. Run `docker build . -t autop`
 4. Run `docker run -p "5000:5000"  -tdi autop`
 5. Access the endpoint [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
+
+6. Click "Populate Database" in order to fetch data from the remote web source.
+7. In case of issue, click "Teardown Table" to drop the table and start fresh.
+ 
