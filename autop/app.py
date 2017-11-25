@@ -50,7 +50,7 @@ def get_cars(car_type='Truck'):
 # Usually static will go under a CDN/web server
 @app.route('/static/<path:path>', methods=['HEAD', 'GET'])
 def send_static(path):
-    return send_from_directory('/app/autop/static', path)
+    return send_from_directory('autop/static', path)
 
 
 # All POST Methods
