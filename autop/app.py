@@ -29,9 +29,8 @@ def add_header(r):
 @app.route('/', methods=['HEAD', 'GET'])
 @app.route('/<car_type>', methods=['HEAD', 'GET'])
 def get_cars(car_type='Truck'):
-    # GET params
     car_type = car_type
-    # car_type = request.args.get('type', 'Truck')
+    init_db()
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
 
@@ -80,5 +79,4 @@ def teardown_db_table():
 
 
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
