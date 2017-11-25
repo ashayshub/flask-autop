@@ -61,9 +61,9 @@ def populate_db():
     ret_val = crawl.populate(crawl_url)
 
     if ret_val is None:
-        return 'Could not find any car list'
+        return 'Could not find any car list', 404
     elif ret_val is False:
-        return 'Error inserting data in database'
+        return 'Error inserting data in database', 500
 
     return 'Populated the data into database'
 
@@ -72,7 +72,7 @@ def populate_db():
 @app.route('/teardown/', methods=['DELETE'])
 def teardown_db_table():
     if drop_table() is False:
-        return 'Error Dropping the database table'
+        return 'Error Dropping the database table', 500
     return 'Tore down the structure'
 
 

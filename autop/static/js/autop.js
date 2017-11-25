@@ -1,13 +1,9 @@
 function printToModal(data) {
    $('.modal-body p').text(data);
    $('#myModal').modal('show');
-   location.href = "/";
    return true;
 }
 
-function template_map(type, data){
-   $("#catTemplate").tmpl(data).appendTo("#table-"+type);
-}
 
 $(document).ready(function() {
     event.preventDefault();
@@ -19,9 +15,12 @@ $(document).ready(function() {
               url: "/populate/",
               success: function(resultData){
                    printToModal(resultData);
+                   location.href = "/";
               }
         });
-        saveData.error(function() { printToModal('Error: Something went wrong while populating data') });
+        saveData.error(function() {
+              printToModal('Error: Something went wrong while populating data')
+        });
     });
 
     $("#teardown").click(function(){
@@ -31,9 +30,12 @@ $(document).ready(function() {
               url: "/teardown/",
               success: function(resultData){
                    printToModal(resultData);
+                   location.href = "/";
               }
         });
-        saveData.error(function() { printToModal("Error: Something went wrong while dropping table"); });
+        saveData.error(function() {
+              printToModal("Error: Something went wrong while dropping table");
+        });
     });
 
 });
