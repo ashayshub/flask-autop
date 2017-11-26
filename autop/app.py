@@ -5,16 +5,20 @@ from flask import Flask, render_template, request, jsonify
 from flask_bootstrap import Bootstrap
 from flask_paginate import Pagination, get_page_args
 
-from autop.processor import Crawler
+from autop.processor import populate, request_price
 from autop.models import db, Car, init_db, drop_table
 
-app = Flask(__name__, static_url_path='/static', root_path='/app',
+app = Flask(__name__, static_url_path='/static', root_path='/home/clearkruti/Programming/flask-autop',
             template_folder='autop/templates', static_folder='autop/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/autop.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+with app.app_context():
+    db.init_app(app=app)
+    init_db()
+
 Bootstrap(app)
-db.init_app(app=app)
+
 
 
 # For Debug
@@ -37,7 +41,6 @@ def add_header(r):
 @app.route('/', methods=['HEAD', 'OPTIONS', 'GET'])
 @app.route('/Sport', methods=['HEAD', 'OPTIONS', 'GET'])
 def get_trucks():
-    init_db()
     car_type = request.args.get('car_type', 'Truck')
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
@@ -64,8 +67,7 @@ def get_price():
 
     url_prefix = 'http://www.nydailynews.com/autos/'
     price_url = url_prefix + query
-    crawl = Crawler()
-    resp = crawl.request_price(price_url)
+    resp = request_price(price_url)
 
     if not resp:
         return 'Not Found', 404
@@ -76,11 +78,10 @@ def get_price():
 # All POST Methods
 @app.route('/populate/', methods=['POST'])
 def populate_db():
-    init_db()
     crawl_url = {'Truck': 'http://www.nydailynews.com/autos/types/truck',
                  'Sport': 'http://www.nydailynews.com/autos/types/sports-car'}
-    crawl = Crawler()
-    ret_val = crawl.populate(crawl_url)
+
+    ret_val = populate(crawl_url)
 
     if ret_val is None:
         return 'Could not find any car list', 404

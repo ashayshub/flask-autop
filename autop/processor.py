@@ -42,58 +42,51 @@ def format_list(data_type, soup):
     return data_list
 
 
-class Crawler(object):
-    """
-    Class to crawl through set of URLs
-    """
+def populate(urls):
 
-    def __init__(self):
-        pass
+    car_list = list()
+    url_prefix = 'http://www.nydailynews.com'
 
-    def populate(self, urls):
+    for car_type, url in urls.items():
+        r = requests.get(url)
+        soup = BeautifulSoup(r.text, 'html.parser')
+        car_list.extend(format_list(car_type, soup))
 
-        car_list = list()
-        url_prefix = 'http://www.nydailynews.com'
+        # Process all available years
+        # except already processed current year
 
-        for car_type, url in urls.items():
-            r = requests.get(url)
+        for year_url in get_yearwise_urllist(soup):
+
+            # Throttle 1 sec for crawling
+            # optional for low intensity crawling
+            time.sleep(1)
+
+            r = requests.get(url_prefix + year_url)
             soup = BeautifulSoup(r.text, 'html.parser')
             car_list.extend(format_list(car_type, soup))
 
-            # Process all available years
-            # except already processed current year
+        if not car_list:
+            return None
 
-            for year_url in get_yearwise_urllist(soup):
-
-                # Throttle 1 sec for crawling
-                # optional for low intensity crawling
-                time.sleep(1)
-
-                r = requests.get(url_prefix + year_url)
-                soup = BeautifulSoup(r.text, 'html.parser')
-                car_list.extend(format_list(car_type, soup))
-
-            if not car_list:
-                return None
-
-        if not db_insert(car_list):
-            return False
-
-        return True
-
-    def request_price(self, url):
-        api_endpoint = 'http://api.edmunds.com/api/vehicle/v2/styles/'
-        part_uri = '?view=full&fmt=json&api_key='
-        api_key = 'b72ndgbvxw4vp92eugantyr4'
-
-        r = requests.get(url)
-        soup = BeautifulSoup(r.text, 'html.parser')
-        trim_tag = soup.find('div', {'id': 'ra-wrap'})
-        trim_id = trim_tag.attrs['data-trimid']
-        r2 = requests.get(api_endpoint + trim_id + part_uri + api_key)
-        price_info = json.loads(r2.text)
-
-        if price_info:
-            return price_info.get('price', None)
-
+    if not db_insert(car_list):
         return False
+
+    return True
+
+
+def request_price(url):
+    api_endpoint = 'http://api.edmunds.com/api/vehicle/v2/styles/'
+    part_uri = '?view=full&fmt=json&api_key='
+    api_key = 'b72ndgbvxw4vp92eugantyr4'
+
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
+    trim_tag = soup.find('div', {'id': 'ra-wrap'})
+    trim_id = trim_tag.attrs['data-trimid']
+    r2 = requests.get(api_endpoint + trim_id + part_uri + api_key)
+    price_info = json.loads(r2.text)
+
+    if price_info:
+        return price_info.get('price', None)
+
+    return False
