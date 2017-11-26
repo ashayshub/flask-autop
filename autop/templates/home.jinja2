@@ -74,7 +74,9 @@
                 <td>{{ car.car_type }}</td>
                 <td>{{ car.title }}</td>
                 <td>{{ car.summary }}</td>
-                <td><button type="button" data-price-url="{{ car.price_url }}" class="btn btn-info btn-xs" >Get Price</button></td>
+                <td><button type="button" data-price-url="{{ car.price_url }}"
+                    id="price-info-{{ loop.index + (page - 1)* per_page }}"
+                    class="btn btn-info btn-xs" >Get Price</button></td>
             </tr>
         {% endfor %}
         </tbody>
