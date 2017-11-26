@@ -4,7 +4,7 @@ import json
 import datetime
 import requests
 from bs4 import BeautifulSoup
-from autop.models import db_insert
+from autop.models import init_db, db_insert
 
 
 def get_yearwise_urllist(soup):
@@ -68,6 +68,7 @@ def populate(urls):
         if not car_list:
             return None
 
+    init_db()
     if not db_insert(car_list):
         return False
 
