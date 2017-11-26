@@ -1,4 +1,7 @@
+import logging
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exc
+
 db = SQLAlchemy(session_options={
     'autocommit': True,
     'autoflush': True
@@ -41,7 +44,11 @@ def init_db():
 
 
 def db_insert(data):
-    db.session.bulk_insert_mappings(Car, data)
+    try:
+        db.session.bulk_insert_mappings(Car, data)
+    except exc.IntegrityError as e:
+        logging.error(f'Error: Inserting data to db. Exception: {e}')
+        return False
     return True
 
 
