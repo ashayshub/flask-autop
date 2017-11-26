@@ -62,7 +62,7 @@ $(document).ready(function() {
         });
      });
 
-     $("#modal-close").click(function(){
+     $('#myModal').on('hide.bs.modal', function(){
         var refresh = $("#modal-close").data("teardown");
         if (refresh == "1") {
            $("#modal-close").removeAttr('data-teardown');
