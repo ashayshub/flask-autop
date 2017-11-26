@@ -8,8 +8,9 @@ This is a Test Application for project Auto Test.
 2. The deployment will require active internet connection
    in order to download the static libraries for frontend. (e.g. Bootstrap)
 
-### ToDo
-1. Add `get price` functionality to the "Get Price" button.  
+### ToDo (optional)
+1. Get better UI response.  
+2. Remove the class for crawler, since all methods are static. 
 
 ### To Run the Server
 
@@ -25,3 +26,4 @@ This is a Test Application for project Auto Test.
 3. In case of issue, click "Teardown Table" to drop the table and start fresh.
 4. Home page lists the paginated view of All the Trucks from the local database.
 5. [Sport](http://127.0.0.1:5000/Sport?car_type=Sport) link lists all the Sports cars from the local database. 
+6. In order to fetch the price of a vehicle, click on "Get Price"
