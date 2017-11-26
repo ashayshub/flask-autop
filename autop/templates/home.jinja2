@@ -20,17 +20,24 @@
 
 {% block content %}
   <div class="bs-example">
-
-    <div class="text-left">
-       <button type="button" data-toggle="modal" data-target="#myModal" id="populate" class="btn btn-primary">Populate Database</button>
-       <button type="button" data-toggle="modal" data-target="#myModal" id="teardown" class="btn btn-danger">Teardown Table</button>
-       {% if car_type == "Truck" %}
-         <a href="/Sport?car_type=Sport" class="btn btn-link" role="button">Sports</a>
-       {% else %}
-         <a href="/" class="btn btn-link" role="button">Home</a>
-       {% endif %}
+    <div class="row">
+    <div class="span12">
+        <div class="span2">
+           <h1 class="car-header">Car type: {{ car_type }}</h1>
+        </div>
+        <div class="span10">
+            <div class="text-right">
+               {% if car_type == "Truck" %}
+                 <a href="/Sport?car_type=Sport" class="btn btn-link" role="button">Sports</a>
+               {% else %}
+                 <a href="/" class="btn btn-link" role="button">Home</a>
+               {% endif %}
+               <button type="button" data-toggle="modal" data-target="#myModal" id="populate" class="btn btn-primary">Populate Database</button>
+               <button type="button" data-toggle="modal" data-target="#myModal" id="teardown" class="btn btn-danger">Teardown Table</button>
+            </div>
+        </div>
     </div>
-
+    </div>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -51,7 +58,6 @@
 
       </div>
     </div>
-    <p class="h2">Car type: {{ car_type }}</p>
     <div>
     {{ pagination.info }}
     {{ pagination.links }}
