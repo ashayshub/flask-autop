@@ -30,6 +30,7 @@ $(document).ready(function() {
         var modal_title = "Drop table";
         $('.modal-title').text(modal_title);
         $('.modal-body p').text('Tearing down...');
+        $('#modal-close').attr('data-teardown', '1');
         var saveData = $.ajax({
               type: 'DELETE',
               url: "/teardown/",
@@ -47,6 +48,7 @@ $(document).ready(function() {
         var price_query = $(this).data("price-query");
         $('.modal-title').text(modal_title);
         $('.modal-body p').text('Fetching price for vehicle...');
+
         var saveData = $.ajax({
               type: 'GET',
               url: "/price?price_query=" + encodeURIComponent(price_query),
@@ -56,8 +58,17 @@ $(document).ready(function() {
               }
         });
         saveData.error(function() {
-              printToModal(modal_title, 'Error: Work in progresss');
+              printToModal(modal_title, 'Error: Could not fetch the appropriate price');
         });
      });
+
+     $("#modal-close").click(function(){
+        var refresh = $("#modal-close").data("teardown");
+        if (refresh == "1") {
+           $("#modal-close").removeAttr('data-teardown');
+           location.href = "/";
+        }
+     });
+
 });
 
