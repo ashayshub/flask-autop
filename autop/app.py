@@ -60,7 +60,7 @@ def get_price():
     query = request.args.get('price_query', None)
 
     if query is None:
-        return 'Not Found', 404
+        return 'Bad Request', 400
 
     url_prefix = 'http://www.nydailynews.com/autos/'
     price_url = url_prefix + query
