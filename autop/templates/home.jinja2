@@ -23,7 +23,7 @@
 
     <div class="text-left">
        <button type="button" data-toggle="modal" data-target="#myModal" id="populate" class="btn btn-primary">Populate Database</button>
-       <button type="button" id="teardown" class="btn btn-danger">Teardown Table</button>
+       <button type="button" data-toggle="modal" data-target="#myModal" id="teardown" class="btn btn-danger">Teardown Table</button>
        {% if car_type == "Truck" %}
          <a href="/Sport?car_type=Sport" class="btn btn-link" role="button">Sports</a>
        {% else %}
@@ -74,9 +74,10 @@
                 <td>{{ car.car_type }}</td>
                 <td>{{ car.title }}</td>
                 <td>{{ car.summary }}</td>
-                <td><button type="button" data-price-url="{{ car.price_url }}"
-                    id="price-info-{{ loop.index + (page - 1)* per_page }}"
-                    class="btn btn-info btn-xs" >Get Price</button></td>
+                <td><button type="button"  data-toggle="modal" data-target="#myModal"
+                     data-price-query="{{ car.price_query }}"
+                     id="price-info-{{ loop.index + (page - 1)* per_page }}"
+                     class="btn btn-info btn-xs" >Get Price</button></td>
             </tr>
         {% endfor %}
         </tbody>

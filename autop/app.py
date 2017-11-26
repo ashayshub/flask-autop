@@ -1,6 +1,7 @@
 import logging
 import os
-from flask import Flask, send_from_directory, render_template, request
+
+from flask import Flask, render_template, request, jsonify
 from flask_bootstrap import Bootstrap
 from flask_paginate import Pagination, get_page_args
 
@@ -33,8 +34,8 @@ def add_header(r):
 
 # All GET Methods
 
-@app.route('/', methods=['HEAD', 'GET'])
-@app.route('/Sport', methods=['HEAD', 'GET'])
+@app.route('/', methods=['HEAD', 'OPTIONS', 'GET'])
+@app.route('/Sport', methods=['HEAD', 'OPTIONS', 'GET'])
 def get_trucks():
     init_db()
     car_type = request.args.get('car_type', 'Truck')
@@ -52,6 +53,24 @@ def get_trucks():
 
     return render_template('home.jinja2', cars=cars, car_type=car_type,
                            page=page, per_page=per_page, pagination=pagination)
+
+
+@app.route('/price', methods=['HEAD', 'OPTIONS', 'GET'])
+def get_price():
+    query = request.args.get('price_query', None)
+
+    if query is None:
+        return 'Not Found', 404
+
+    url_prefix = 'http://www.nydailynews.com/autos/'
+    price_url = url_prefix + query
+    crawl = Crawler()
+    resp = crawl.request_price(price_url)
+
+    if not resp:
+        return 'Not Found', 404
+
+    return jsonify(resp)
 
 
 # All POST Methods

@@ -19,10 +19,10 @@ class Car(db.Model):
     year = db.Column(db.String(120))
     summary = db.Column(db.String(255))
     image = db.Column(db.String(255))
-    price_url = db.Column(db.String(255))
+    price_query = db.Column(db.String(255))
 
     def __init__(self, title=None, summary=None, car_type=None, image=None,
-                 car_make=None, car_model=None, year=None, price_url=None):
+                 car_make=None, car_model=None, year=None, price_query=None):
         self.title = title
         self.car_type = car_type
         self.car_make = car_make
@@ -30,7 +30,7 @@ class Car(db.Model):
         self.year = year
         self.summary = summary
         self.image = image
-        self.price_url = price_url
+        self.price_query = price_query
 
     def __repr__(self):
         return f'<Car {self.title}>'

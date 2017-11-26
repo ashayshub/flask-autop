@@ -12,7 +12,7 @@ $(document).ready(function() {
     $("#populate").click(function(){
         var modal_title = "Populate Database";
         $('.modal-title').text(modal_title);
-        $('.modal-body p').text('Populating... it may take 5-10 seconds');
+        $('.modal-body p').text('Populating... it may take 10-15 seconds');
         var saveData = $.ajax({
               type: 'POST',
               url: "/populate/",
@@ -45,15 +45,15 @@ $(document).ready(function() {
 
     $("[id^=price-info-]").click(function(){
         var modal_title = "Vehicle Price";
-        var price_url = $(this).data("price-url");
+        var price_query = $(this).data("price-query");
         $('.modal-title').text(modal_title);
         $('.modal-body p').text('Fetching price for vehicle...');
         var saveData = $.ajax({
               type: 'GET',
-              url: "/price/?price_url=" + encodeURIComponent(price_url),
+              url: "/price?price_query=" + encodeURIComponent(price_query),
               success: function(resultData){
-                   printToModal(modal_title, resultData);
-                   location.href = "/";
+                   body_text = "Base price of the vehicle is $" + resultData.baseMSRP;
+                   printToModal(modal_title, body_text);
               }
         });
         saveData.error(function() {
