@@ -17,7 +17,7 @@ def get_yearwise_urllist(soup):
     return url_list
 
 
-def format_list(data_type, soup):
+def format_list(url_prefix, data_type, soup):
     data_list = list()
     p = soup.find_all('div', {'class': 'rtww'})
     for div_tag in p:
@@ -29,7 +29,9 @@ def format_list(data_type, soup):
                 'car_model': ' '.join(tag.h3.text.split()[2:]),
                 'summary': tag.p.text,
                 'car_type': data_type,
-                'image': tag.img.text
+                'image': tag.img.text,
+                'price_url': url_prefix + '/autos/' + tag.h3.text.split()[1] +
+                             '-'.join(tag.h3.text.split()) + '-' + tag['data-l-cid']
             })
     return data_list
 
@@ -50,7 +52,7 @@ class Crawler(object):
         for car_type, url in urls.items():
             r = requests.get(url)
             soup = BeautifulSoup(r.text, 'html.parser')
-            car_list.extend(format_list(car_type, soup))
+            car_list.extend(format_list(url_prefix, car_type, soup))
 
             # Process all available years
             # except already processed current year
@@ -63,7 +65,7 @@ class Crawler(object):
 
                 r = requests.get(url_prefix + year_url)
                 soup = BeautifulSoup(r.text, 'html.parser')
-                car_list.extend(format_list(car_type, soup))
+                car_list.extend(format_list(url_prefix, car_type, soup))
 
             if not car_list:
                 return None
