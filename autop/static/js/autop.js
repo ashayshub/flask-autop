@@ -35,7 +35,6 @@ $(document).ready(function() {
               url: "/teardown/",
               success: function(resultData){
                    printToModal(modal_title, resultData);
-                   location.href = "/";
               }
         });
         saveData.error(function() {

@@ -4,6 +4,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 from flask_bootstrap import Bootstrap
 from flask_paginate import Pagination, get_page_args
+from sqlalchemy import exc
 
 from autop.processor import populate, request_price
 from autop.models import db, Car, init_db, drop_table
@@ -46,8 +47,14 @@ def get_trucks():
                                            per_page_parameter='per_page')
 
     query = Car.query.filter_by(car_type=car_type).order_by(Car.title)
-    cars = query.offset(offset).limit(per_page).all()
-    count = query.count()
+
+    try:
+        cars = query.offset(offset).limit(per_page).all()
+        count = query.count()
+    except exc.OperationalError as e:
+        logging.error(f'Exception quering cars table: {e}')
+        cars = dict()
+        count = 0
 
     pagination = Pagination(page=page, per_page=per_page, total=count,
                             record_name='cars', css_framework='bootstrap3',
@@ -100,4 +107,9 @@ def teardown_db_table():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+
+    debug_flag = False
+    if os.environ.get('DEBUG', '0') == '1':
+        debug_flag = True
+
+    app.run(debug=debug_flag)
