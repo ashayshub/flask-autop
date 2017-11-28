@@ -20,7 +20,9 @@ with app.app_context():
 
 Bootstrap(app)
 
-
+debug_flag = False
+if os.environ.get('DEBUG', '0') == '1':
+    debug_flag = True
 
 # For Debug
 @app.after_request
@@ -29,7 +31,7 @@ def add_header(r):
     Add headers to both force latest IE rendering engine or Chrome Frame,
     and also to cache the rendered page for 10 minutes.
     """
-    if os.environ.get('DEBUG', '0') == '1':
+    if debug_flag:
         logging.warning('Debugging is On')
         r.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate, public, max-age=0'
         r.headers['Pragma'] = 'no-cache'
@@ -108,8 +110,7 @@ def teardown_db_table():
 
 if __name__ == '__main__':
 
-    debug_flag = False
-    if os.environ.get('DEBUG', '0') == '1':
+   if debug_flag:
         debug_flag = True
 
     app.run(debug=debug_flag)
