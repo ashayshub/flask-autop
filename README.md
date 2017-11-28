@@ -8,10 +8,6 @@ This is a Test Application for project Auto Test.
 2. The deployment will require active internet connection
    in order to download the static libraries for frontend. (e.g. Bootstrap)
 
-### ToDo (optional)
-1. Get better UI response.  
-2. Remove the class for crawler, since all methods are static. 
-
 ### To Run the Server
 
 1. Dockerfile resides in `docker` directory.
