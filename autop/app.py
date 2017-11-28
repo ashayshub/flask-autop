@@ -24,6 +24,7 @@ debug_flag = False
 if os.environ.get('DEBUG', '0') == '1':
     debug_flag = True
 
+
 # For Debug
 @app.after_request
 def add_header(r):
@@ -109,8 +110,4 @@ def teardown_db_table():
 
 
 if __name__ == '__main__':
-
-   if debug_flag:
-        debug_flag = True
-
     app.run(debug=debug_flag)
