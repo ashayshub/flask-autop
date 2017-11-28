@@ -65,8 +65,8 @@ def populate(urls):
             soup = BeautifulSoup(r.text, 'html.parser')
             car_list.extend(format_list(car_type, soup))
 
-        if not car_list:
-            return None
+    if not car_list:
+        return None
 
     init_db()
     if not db_insert(car_list):
