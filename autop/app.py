@@ -48,7 +48,7 @@ def get_trucks():
     page, per_page, offset = get_page_args(page_parameter='page',
                                            per_page_parameter='per_page')
 
-    query = Car.query.filter_by(car_type=car_type).order_by(Car.title)
+    query = Car.query.filter_by(car_type=car_type).order_by(Car.year, Car.title)
 
     try:
         cars = query.offset(offset).limit(per_page).all()
