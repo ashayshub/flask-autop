@@ -43,7 +43,6 @@ def add_header(r):
 # All GET Methods
 
 @app.route('/', methods=['HEAD', 'OPTIONS', 'GET'])
-@app.route('/Sport', methods=['HEAD', 'OPTIONS', 'GET'])
 def get_trucks():
     car_type = request.args.get('car_type', 'Truck')
     page, per_page, offset = get_page_args(page_parameter='page',

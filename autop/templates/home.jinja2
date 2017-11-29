@@ -1,5 +1,5 @@
 {%- extends "bootstrap/base.html" %}
-{% block title %}Home | Autop App for Test {% endblock %}
+{% block title %} {{ car_type }} - Home | Autop App for Test {% endblock %}
 {% import "bootstrap/fixes.html" as fixes %}
 
 {% block head %}
@@ -28,7 +28,7 @@
             <div class="span10">
                 <div class="text-right">
                    {% if car_type == "Truck" %}
-                     <a href="/Sport?car_type=Sport" class="btn btn-link" role="button">Sports</a>
+                     <a href="/?car_type=Sport" class="btn btn-link" role="button">Sports</a>
                    {% else %}
                      <a href="/" class="btn btn-link" role="button">Home</a>
                    {% endif %}
