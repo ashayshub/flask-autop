@@ -107,3 +107,4 @@ venv.bak/
 *~
 autop.egg-info/
 .idea/
+.vscode/
