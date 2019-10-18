@@ -34,7 +34,7 @@ setup(
      'requests==2.18.4',
      'six==1.11.0',
      'SQLAlchemy==1.1.15',
-     'urllib3==1.22',
+     'urllib3==1.24.2',
      'Werkzeug==0.12.2'
     ],
     setup_requires=[
