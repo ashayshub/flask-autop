@@ -21,7 +21,7 @@ setup(
      'chardet==3.0.4',
      'click==6.7',
      'docutils==0.14',
-     'Flask==0.12.2',
+     'Flask==1.0',
      'Flask-Bootstrap==3.3.7.1',
      'flask-paginate==0.5.1',
      'Flask-SQLAlchemy==2.3.2',
