@@ -35,7 +35,7 @@ setup(
      'six==1.11.0',
      'SQLAlchemy==1.1.15',
      'urllib3==1.22',
-     'Werkzeug==0.12.2'
+     'Werkzeug==0.15.3'
     ],
     setup_requires=[
         'pytest-runner',
